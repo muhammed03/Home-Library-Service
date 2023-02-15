@@ -92,11 +92,12 @@ export class UsersService {
     }
 
     const user = db[FIELDS.USERS].find((item) => item.id === id);
+    const userIndex = db[FIELDS.USERS].findIndex((item) => item.id === id);
 
     if (!user) {
       throw new NotFoundException(`User with id ${id} doesn't exist`);
     }
 
-    db[FIELDS.USERS] = db[FIELDS.USERS].filter((user) => user.id !== id);
+    db[FIELDS.USERS].splice(userIndex, 1);
   }
 }
