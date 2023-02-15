@@ -6,7 +6,7 @@ const createUserDto = {
 };
 
 const getTokenAndUserId = async (request) => {
-  // create user
+  // create users
   const response = await request
     .post(authRoutes.signup)
     .set('Accept', 'application/json')
