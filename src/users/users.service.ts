@@ -45,11 +45,6 @@ export class UsersService {
   }
 
   async createUser(userData: CreateUserDto) {
-    const { login, password } = userData;
-    if (!login || !password) {
-      throw new BadRequestException(`Body doesn't contain required fields`);
-    }
-
     const newUser: UserEntity = {
       id: uuidV4(),
       version: 1,

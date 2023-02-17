@@ -9,4 +9,11 @@ export const db = {
       updatedAt: 1,
     },
   ],
+  artists: [
+    {
+      id: '86e74a6d-40ee-4ede-8402-aeea89b128dd',
+      name: 'testArtist',
+      grammy: true,
+    },
+  ],
 };
