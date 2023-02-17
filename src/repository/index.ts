@@ -16,4 +16,12 @@ export const db = {
       grammy: true,
     },
   ],
+  albums: [
+    {
+      id: 'ba79285b-aabf-4406-ba24-e1111f970ea9',
+      name: 'testAlbum',
+      year: 2011,
+      artistId: null,
+    },
+  ],
 };

@@ -4,25 +4,25 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { v4 as uuidV4 } from 'uuid';
-import { ArtistEntity } from './entities/artists.entities';
+import { AlbumEntity } from './entities/albums.entities';
 import { FIELDS } from '../core/constants';
+import { db } from '../repository';
 import StoreService from '../core/StoreService';
 import { validateById, ValidatorResponse } from '../utils/validator';
 import { getMessage } from '../utils/helpers';
-import { CreateArtistDTO, UpdateArtistDTO } from './dto/artists.dto';
-import { db } from '../repository';
+import { CreateAlbumDTO, UpdateAlbumDTO } from './dto/albums.dto';
 
 @Injectable()
-export class ArtistsService extends StoreService {
-  async getAllArtists(): Promise<ArtistEntity[]> {
-    return this.findAll(FIELDS.ARTISTS);
+export class AlbumsService extends StoreService {
+  async getAllAlbums(): Promise<AlbumEntity[]> {
+    return db[FIELDS.ALBUMS];
   }
 
-  async getArtistById(id: string): Promise<ArtistEntity> {
+  async getAlbumById(id: string): Promise<AlbumEntity> {
     const validatorRes = await validateById(
       {
         id,
-        fieldName: FIELDS.ARTISTS,
+        fieldName: FIELDS.ALBUMS,
       },
       this,
     );
@@ -31,17 +31,17 @@ export class ArtistsService extends StoreService {
       case ValidatorResponse.NOT_VALID_ID:
         throw new BadRequestException(getMessage().NOT_VALID_ID);
       case ValidatorResponse.NOT_FOUND:
-        throw new NotFoundException(getMessage(id).ARTIST_NOT_FOUND);
+        throw new NotFoundException(getMessage(id).ALBUM_NOT_FOUND);
       case ValidatorResponse.VALID:
-        return await this.findOne(id, FIELDS.ARTISTS);
+        return await this.findOne(id, FIELDS.ALBUMS);
     }
   }
 
-  async deleteArtistById(id: string) {
+  async deleteAlbumById(id: string) {
     const validatorRes = await validateById(
       {
         id,
-        fieldName: FIELDS.ARTISTS,
+        fieldName: FIELDS.ALBUMS,
       },
       this,
     );
@@ -50,29 +50,26 @@ export class ArtistsService extends StoreService {
       case ValidatorResponse.NOT_VALID_ID:
         throw new BadRequestException(getMessage().NOT_VALID_ID);
       case ValidatorResponse.NOT_FOUND:
-        throw new NotFoundException(getMessage(id).ARTIST_NOT_FOUND);
+        throw new NotFoundException(getMessage().ALBUM_NOT_FOUND);
       case ValidatorResponse.VALID:
-        await this.deleteOne(id, FIELDS.ARTISTS);
-        db[FIELDS.ALBUMS].forEach((album) => {
-          album.artistId === id ? (album.artistId = null) : album.artistId;
-        });
+        await this.deleteOne(id, FIELDS.ALBUMS);
     }
   }
 
-  async createArtist(artistData: CreateArtistDTO) {
-    const newArtist: ArtistEntity = {
+  async createAlbum(albumData: CreateAlbumDTO) {
+    const newAlbum: AlbumEntity = {
       id: uuidV4(),
-      ...artistData,
+      ...albumData,
     };
 
-    db[FIELDS.ARTISTS].push(newArtist);
+    db[FIELDS.ALBUMS].push(newAlbum);
   }
 
-  async updateArtist(id: string, artistData: UpdateArtistDTO) {
+  async updateAlbum(id: string, albumData: UpdateAlbumDTO) {
     const validatorRes = await validateById(
       {
         id,
-        fieldName: FIELDS.ARTISTS,
+        fieldName: FIELDS.ALBUMS,
       },
       this,
     );
@@ -81,17 +78,17 @@ export class ArtistsService extends StoreService {
       case ValidatorResponse.NOT_VALID_ID:
         throw new BadRequestException(getMessage().NOT_VALID_ID);
       case ValidatorResponse.NOT_FOUND:
-        throw new NotFoundException(getMessage(id).ARTIST_NOT_FOUND);
+        throw new NotFoundException(getMessage(id).ALBUM_NOT_FOUND);
       case ValidatorResponse.VALID:
-        const artist = db[FIELDS.ARTISTS].find((item) => item.id === id);
+        const album = db[FIELDS.ALBUMS].find((item) => item.id === id);
 
-        const artistIndex = db[FIELDS.ARTISTS].findIndex(
+        const albumIndex = db[FIELDS.ALBUMS].findIndex(
           (item) => item.id === id,
         );
 
-        db[FIELDS.ARTISTS][artistIndex] = {
-          ...artist,
-          ...artistData,
+        db[FIELDS.ALBUMS][albumIndex] = {
+          ...album,
+          ...albumData,
         };
     }
   }
