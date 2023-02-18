@@ -53,6 +53,8 @@ export class TracksService extends StoreService {
         throw new NotFoundException(getMessage(id).TRACK_NOT_FOUND);
       case ValidatorResponse.VALID:
         await this.deleteOne(id, FIELDS.TRACKS);
+
+        db.favs[FIELDS.TRACKS].filter((trackId) => trackId !== id);
     }
   }
 

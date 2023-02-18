@@ -60,6 +60,8 @@ export class ArtistsService extends StoreService {
         db[FIELDS.TRACKS].forEach((track) => {
           track.artistId === id ? (track.artistId = null) : track.artistId;
         });
+
+        db.favs[FIELDS.ARTISTS].filter((artistId) => artistId !== id);
     }
   }
 

@@ -56,6 +56,8 @@ export class AlbumsService extends StoreService {
         db[FIELDS.TRACKS].forEach((track) => {
           track.albumId === id ? (track.albumId = null) : track.albumId;
         });
+
+        db.favs[FIELDS.ALBUMS].filter((albumId) => albumId !== id);
     }
   }
 
