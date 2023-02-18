@@ -53,6 +53,9 @@ export class AlbumsService extends StoreService {
         throw new NotFoundException(getMessage().ALBUM_NOT_FOUND);
       case ValidatorResponse.VALID:
         await this.deleteOne(id, FIELDS.ALBUMS);
+        db[FIELDS.TRACKS].forEach((track) => {
+          track.albumId === id ? (track.albumId = null) : track.albumId;
+        });
     }
   }
 
