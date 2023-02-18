@@ -21,7 +21,16 @@ export const db = {
       id: 'ba79285b-aabf-4406-ba24-e1111f970ea9',
       name: 'testAlbum',
       year: 2011,
-      artistId: null,
+      artistId: '86e74a6d-40ee-4ede-8402-aeea89b128dd',
+    },
+  ],
+  tracks: [
+    {
+      id: '1d9bb6fe-239c-4bfb-9d09-904c5090e81f',
+      name: 'testTrack',
+      artistId: '86e74a6d-40ee-4ede-8402-aeea89b128dd',
+      albumId: 'ba79285b-aabf-4406-ba24-e1111f970ea9',
+      duration: 2103211,
     },
   ],
 };
