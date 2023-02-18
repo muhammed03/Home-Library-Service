@@ -33,4 +33,9 @@ export const db = {
       duration: 2103211,
     },
   ],
+  favs: {
+    artists: ['86e74a6d-40ee-4ede-8402-aeea89b128dd'],
+    albums: ['ba79285b-aabf-4406-ba24-e1111f970ea9'],
+    tracks: ['1d9bb6fe-239c-4bfb-9d09-904c5090e81f'],
+  },
 };

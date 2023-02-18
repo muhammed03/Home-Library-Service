@@ -3,5 +3,5 @@ export enum FIELDS {
   ARTISTS = 'artists',
   TRACKS = 'tracks',
   ALBUMS = 'albums',
-  FAVORITES = 'favorites',
+  FAVORITES = 'favs',
 }
